@@ -15,4 +15,4 @@ var IndexRoutes = /** @class */ (function () {
 }());
 var indexRoutes = new IndexRoutes();
 indexRoutes.routes();
-exports.default = IndexRoutes.router;
+exports.default = indexRoutes.router;

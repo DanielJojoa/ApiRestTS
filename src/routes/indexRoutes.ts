@@ -3,7 +3,6 @@ import { Request, Response, Router} from 'express'
 
 class IndexRoutes{
     public router: Router;
-    static router: any;
     constructor(){
         this.router = Router();
         this.routes();
@@ -16,4 +15,4 @@ class IndexRoutes{
 }
 const indexRoutes =new IndexRoutes();
 indexRoutes.routes();
-export default IndexRoutes.router;
+export default indexRoutes.router;

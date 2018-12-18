@@ -7,7 +7,7 @@ var express_1 = __importDefault(require("express"));
 var morgan_1 = __importDefault(require("morgan"));
 var helmet = require("helmet");
 var indexRoutes_1 = __importDefault(require("./src/routes/indexRoutes"));
-var mongoose_1 = require("mongoose");
+var mongoose_1 = __importDefault(require("mongoose"));
 var Server = /** @class */ (function () {
     function Server() {
         this.app = express_1.default();
@@ -16,13 +16,21 @@ var Server = /** @class */ (function () {
     }
     Server.prototype.config = function () {
         var MONGO_URL = 'mongodb://localhost/restapit';
-        mongoose_1.Mongoose.connect(MONGO_URL, {});
+        mongoose_1.default.set('useFindAndModify', true);
+        mongoose_1.default.connect(MONGO_URL, {
+            useNewUrlParser: true,
+            useCreateIndex: true
+        })
+            .then(function () { console.log('mongo is connected'); })
+            .catch(function () {
+            console.log('no connected');
+        });
         this.app.set('port', process.env.PORT || 3000);
         this.app.use(morgan_1.default('dev'));
         this.app.use(helmet());
     };
     Server.prototype.routes = function () {
-        this.app.use(indexRoutes_1.default.router);
+        this.app.use(indexRoutes_1.default);
     };
     Server.prototype.start = function () {
         var _this = this;
